@@ -1,0 +1,85 @@
+# Template provided by coursework:
+# https://www.coursera.org/account/accomplishments/verify/NVQG2J2UYMCA
+# Direct link to CodeSkulptor, the browser-based (Chrome preferred) Python interpreter: https://py2.codeskulptor.org/#user50_vxFKQpiWF7_5.py
+# "Stopwatch: The Game"  
+# Measure your reflexis by trying to stop the clock on a whole number
+
+# define global variables
+count = 0
+stops = 0
+hits = 0
+tenth_seconds = 0
+import simplegui
+import math
+running = False
+
+# define helper function format that converts time
+# in tenths of seconds into formatted string A:BC.D
+def zeros(number):
+    if number < 10:
+        number = "0" + str(number)
+        return str(number)
+    else:
+        return str(number)
+
+def format():
+    global tenth_seconds
+    minutes = int(count // 600)
+    seconds = int(math.floor(count % 600 / 10.0))
+    tenth_seconds = int((count % 600) - (seconds * 10))
+    return str(minutes) + ":" + zeros(seconds) + "." + str(tenth_seconds)
+    
+# define event handlers for buttons; "Start", "Stop", "Reset"
+def start():
+    global running
+    timer.start()
+    running=True
+
+def stop():
+    timer.stop()
+    global stops
+    global hits
+    global running
+   
+    if running and tenth_seconds == 0:
+        hits+=1
+        stops+=1
+    elif running:
+        stops+=1
+        
+    running=False
+    
+def reset():
+    global count
+    global stops
+    global hits
+    global tenth_seconds
+    timer.stop()
+    count = 0
+    stops = 0
+    hits = 0
+    tenth_seconds = 0
+
+# define event handler for timer with 0.1 sec interval
+def count_up():
+    global count
+    count+=1
+
+# define draw handler
+def watch(canvas):
+    canvas.draw_text(format(),(100,100),48,"White")
+    score = str(hits) + "/" + str(stops)
+    canvas.draw_text(score,(260,40),24,"White")
+
+# create frame
+frame = simplegui.create_frame("Timer", 300, 200)
+frame.set_draw_handler(watch)
+
+# register event handlers
+timer = simplegui.create_timer(100,count_up)
+button1=frame.add_button("Start",start)
+button2=frame.add_button("Stop",stop)
+button3=frame.add_button("Reset",reset)
+
+# start frame
+frame.start()
