@@ -1,6 +1,6 @@
 # Implementation of classic arcade game Pong
 # Template provided by coursework
-# https://www.coursera.org/account/accomplishments/verify/NVQG2J2UYMCA
+# https://www.coursera.org/learn/interactive-python-1
 # Direct link to browser based Python interpretor CodeSkulptor:  https://py2.codeskulptor.org/#user49_tEPBVCEDhB_4.py
 # Move left paddle with 'w' & 's' keys right paddle with up and down arrows
 
